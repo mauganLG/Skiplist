@@ -9,7 +9,7 @@ import (
 )
 
 func TestSkipStr(t *testing.T) {
-	list := NewSkipList[string]()
+	list := NewSkipListD[string]()
 
 	list.Insert(3, "3")
 	list.Insert(6, "6")
@@ -21,7 +21,7 @@ func TestSkipStr(t *testing.T) {
 }
 
 func TestSkipInt(t *testing.T) {
-	list := NewSkipList[int]()
+	list := NewSkipListD[int]()
 
 	list.Insert(1, 23)
 	list.Insert(2, 78)
@@ -34,7 +34,7 @@ func TestSkipInt(t *testing.T) {
 }
 
 func TestSkipUpdate(t *testing.T) {
-	list := NewSkipList[int]()
+	list := NewSkipListD[int]()
 
 	list.Insert(12, 23)
 	list.Insert(1, 78)
@@ -53,7 +53,7 @@ func TestSkipUpdate(t *testing.T) {
 }
 
 func TestSkipSearchFalse(t *testing.T) {
-	list := NewSkipList[rune]()
+	list := NewSkipListD[rune]()
 
 	list.Insert(10, 'a')
 	list.Insert(14, 'P')
@@ -66,7 +66,7 @@ func TestSkipSearchFalse(t *testing.T) {
 }
 
 func TestSkipDelete(t *testing.T) {
-	list := NewSkipList[float32]()
+	list := NewSkipListD[float32]()
 
 	list.Insert(4, 2.3)
 	list.Insert(9, 7.8)
@@ -77,7 +77,7 @@ func TestSkipDelete(t *testing.T) {
 }
 
 func TestSkipDeleteFalse(t *testing.T) {
-	list := NewSkipList[float64]()
+	list := NewSkipListD[float64]()
 
 	list.Insert(4, 2.3)
 	list.Insert(9, 7.8)
@@ -88,7 +88,7 @@ func TestSkipDeleteFalse(t *testing.T) {
 }
 
 func TestSkipDeleteFalseEmpty(t *testing.T) {
-	list := NewSkipList[float32]()
+	list := NewSkipListD[float32]()
 
 	assert.Equal(t, false, list.Delete(0))
 
@@ -100,7 +100,7 @@ func TestSkipPerson(t *testing.T) {
 		Age  int
 	}
 
-	slPeople := NewSkipList[Person]()
+	slPeople := NewSkipListD[Person]()
 	slPeople.Insert(1, Person{Name: "Alice", Age: 30})
 	slPeople.Insert(2, Person{Name: "Bob", Age: 25})
 
@@ -128,7 +128,7 @@ func TestSkipLength(t *testing.T) {
 		Year  int
 	}
 
-	slCar := NewSkipList[Car]()
+	slCar := NewSkipListD[Car]()
 	slCar.Insert(1, Car{Model: "205", Year: 1982})
 	slCar.Insert(2, Car{Model: "Countach", Year: 1974})
 	slCar.Insert(3, Car{Model: "Testarossa", Year: 1984})

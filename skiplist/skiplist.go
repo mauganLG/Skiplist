@@ -5,7 +5,6 @@ import (
 	"math/rand"
 )
 
-const maxLevel = 32
 const probability = 0.25
 
 // Node represents a node in the skip list
@@ -17,25 +16,32 @@ type Node[V any] struct {
 
 // SkipList represents the skip list data structure
 type SkipList[V any] struct {
-	header *Node[V]
-	level  int
-	length uint
+	header   *Node[V]
+	level    int
+	length   uint
+	maxLevel int
 }
 
 // NewSkipList creates a new skip list
-func NewSkipList[V any]() *SkipList[V] {
+func NewSkipList[V any](maxLevel int) *SkipList[V] {
 	return &SkipList[V]{
 		header: &Node[V]{
 			forward: make([]*Node[V], maxLevel),
 		},
-		level: 0,
+		level:    0,
+		maxLevel: maxLevel,
 	}
 }
 
+// NewSkipList creates a new default skip list
+func NewSkipListD[V any]() *SkipList[V] {
+	return NewSkipList[V](16)
+}
+
 // randomLevel generates a random level for a new node
-func randomLevel() int {
+func (sl *SkipList[V]) randomLevel() int {
 	level := 1
-	for rand.Float64() < probability && level < maxLevel {
+	for rand.Float64() < probability && level < sl.maxLevel {
 		level++
 	}
 	return level
@@ -43,7 +49,7 @@ func randomLevel() int {
 
 // Insert adds a new key-value pair to the skip list
 func (sl *SkipList[V]) Insert(key uint, value V) {
-	update := make([]*Node[V], maxLevel)
+	update := make([]*Node[V], sl.maxLevel)
 	current := sl.header
 
 	// Find where to insert the new node
@@ -57,7 +63,7 @@ func (sl *SkipList[V]) Insert(key uint, value V) {
 
 	// Create a new node if the key doesn't exist
 	if current == nil || current.key != key {
-		level := randomLevel()
+		level := sl.randomLevel()
 
 		// Update the skip list level if necessary
 		if level > sl.level {
@@ -114,7 +120,7 @@ func (sl *SkipList[V]) Delete(key uint) bool {
 	if sl.length < 1 {
 		return false
 	}
-	update := make([]*Node[V], maxLevel)
+	update := make([]*Node[V], sl.maxLevel)
 	current := sl.header
 
 	// Find the node to delete
