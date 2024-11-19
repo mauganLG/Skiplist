@@ -33,6 +33,35 @@ func TestSkipInt(t *testing.T) {
 
 }
 
+func TestSkipDelete(t *testing.T) {
+	list := NewSkipList[float32]()
+
+	list.Insert(4, 2.3)
+	list.Insert(9, 7.8)
+	list.Insert(12, 0.9)
+
+	assert.Equal(t, true, list.Delete(4))
+
+}
+
+func TestSkipDeleteFalse(t *testing.T) {
+	list := NewSkipList[float32]()
+
+	list.Insert(4, 2.3)
+	list.Insert(9, 7.8)
+	list.Insert(12, 0.9)
+
+	assert.Equal(t, false, list.Delete(6))
+
+}
+
+func TestSkipDeleteFalseEmpty(t *testing.T) {
+	list := NewSkipList[float32]()
+
+	assert.Equal(t, false, list.Delete(0))
+
+}
+
 func TestSkipPerson(t *testing.T) {
 	type Person struct {
 		Name string

@@ -146,7 +146,7 @@ func (sl *SkipList[V]) Delete(key uint) bool {
 	return false
 }
 
-// Iterator returns a channel that yields all key-value pairs in order
+// Iterator returns a sequence that yields all key-value pairs in order
 func (sl *SkipList[V]) Iterator() iter.Seq2[uint, V] {
 	return func(yield func(uint, V) bool) {
 		current := sl.header.forward[0]
@@ -159,6 +159,7 @@ func (sl *SkipList[V]) Iterator() iter.Seq2[uint, V] {
 	}
 }
 
+// Values returns a sequence that yields only the value in order
 func (sl *SkipList[V]) Values() iter.Seq[V] {
 	return func(yield func(V) bool) {
 
@@ -170,7 +171,7 @@ func (sl *SkipList[V]) Values() iter.Seq[V] {
 	}
 }
 
-// Len returns the number of elements in the skip list
+// len returns the number of elements in the skip list
 func (sl *SkipList[V]) len() uint {
 	var count uint = 0
 	current := sl.header.forward[0]
@@ -181,7 +182,7 @@ func (sl *SkipList[V]) len() uint {
 	return count
 }
 
-// Len returns the number of elements in the skip list
+// Length returns the number of elements in the skip list
 func (sl *SkipList[V]) Length() uint {
 	return sl.length
 }
