@@ -1,6 +1,7 @@
 package skiplist
 
 import (
+	"errors"
 	"iter"
 	"math/rand"
 )
@@ -23,19 +24,24 @@ type SkipList[V any] struct {
 }
 
 // NewSkipList creates a new skip list
-func NewSkipList[V any](maxLevel int) *SkipList[V] {
+func NewSkipList[V any](maxLevel int) (*SkipList[V], error) {
+
+	if maxLevel < 1 {
+		return nil, errors.New("maxLevel can be less than 1")
+	}
 	return &SkipList[V]{
 		header: &Node[V]{
 			forward: make([]*Node[V], maxLevel),
 		},
 		level:    0,
 		maxLevel: maxLevel,
-	}
+	}, nil
 }
 
 // NewSkipList creates a new default skip list
 func NewSkipListD[V any]() *SkipList[V] {
-	return NewSkipList[V](16)
+	sld, _ := NewSkipList[V](16)
+	return sld
 }
 
 // randomLevel generates a random level for a new node
