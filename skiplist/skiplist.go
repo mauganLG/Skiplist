@@ -78,9 +78,8 @@ func (sl *SkipList[V]) Insert(key uint, value V) {
 		for i := 0; i < level; i++ {
 			newNode.forward[i] = update[i].forward[i]
 			update[i].forward[i] = newNode
-			sl.length++
-
 		}
+		sl.length++
 	} else {
 		// Update value if key already exists
 		current.value = value
@@ -169,17 +168,6 @@ func (sl *SkipList[V]) Values() iter.Seq[V] {
 			}
 		}
 	}
-}
-
-// len returns the number of elements in the skip list
-func (sl *SkipList[V]) len() uint {
-	var count uint = 0
-	current := sl.header.forward[0]
-	for current != nil {
-		count++
-		current = current.forward[0]
-	}
-	return count
 }
 
 // Length returns the number of elements in the skip list

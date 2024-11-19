@@ -33,6 +33,38 @@ func TestSkipInt(t *testing.T) {
 
 }
 
+func TestSkipUpdate(t *testing.T) {
+	list := NewSkipList[int]()
+
+	list.Insert(12, 23)
+	list.Insert(1, 78)
+	list.Insert(5, 2)
+
+	value, _ := list.Search(5)
+
+	assert.Equal(t, 2, value)
+
+	list.Insert(5, 123)
+
+	value, _ = list.Search(5)
+
+	assert.Equal(t, 123, value)
+
+}
+
+func TestSkipSearchFalse(t *testing.T) {
+	list := NewSkipList[rune]()
+
+	list.Insert(10, 'a')
+	list.Insert(14, 'P')
+	list.Insert(23, '&')
+
+	_, res := list.Search(22)
+
+	assert.Equal(t, false, res)
+
+}
+
 func TestSkipDelete(t *testing.T) {
 	list := NewSkipList[float32]()
 
@@ -45,7 +77,7 @@ func TestSkipDelete(t *testing.T) {
 }
 
 func TestSkipDeleteFalse(t *testing.T) {
-	list := NewSkipList[float32]()
+	list := NewSkipList[float64]()
 
 	list.Insert(4, 2.3)
 	list.Insert(9, 7.8)
@@ -101,8 +133,8 @@ func TestSkipLength(t *testing.T) {
 	slCar.Insert(2, Car{Model: "Countach", Year: 1974})
 	slCar.Insert(3, Car{Model: "Testarossa", Year: 1984})
 
-	assert.EqualValues(t, slCar.len(), slCar.Length())
+	assert.EqualValues(t, uint(3), slCar.Length())
 
-	slCar.Delete(1)
-	assert.EqualValues(t, slCar.len(), slCar.Length())
+	slCar.Delete(2)
+	assert.EqualValues(t, uint(2), slCar.Length())
 }
