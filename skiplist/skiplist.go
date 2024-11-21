@@ -173,7 +173,6 @@ func (sl *SkipList[V]) Iterator() iter.Seq2[uint, V] {
 // Values returns a sequence that yields only the value in order
 func (sl *SkipList[V]) Values() iter.Seq[V] {
 	return func(yield func(V) bool) {
-
 		for _, v := range sl.Iterator() {
 			if !yield(v) {
 				return
